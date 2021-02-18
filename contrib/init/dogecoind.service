@@ -1,0 +1,22 @@
+[Unit]
+Description=Earthcoin's distributed currency daemon
+After=network.target
+
+[Service]
+User=earthcoin
+Group=earthcoin
+
+Type=forking
+PIDFile=/var/lib/earthcoind/earthcoind.pid
+ExecStart=/usr/bin/earthcoind -daemon -pid=/var/lib/earthcoind/earthcoind.pid \
+-conf=/etc/earthcoin/earthcoin.conf -datadir=/var/lib/earthcoind -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

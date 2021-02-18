@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Earthcoin Core
+Comment=Connect to the Earthcoin P2P Network
+Comment[de]=Verbinde mit dem Earthcoin peer-to-peer Netzwerk
+Comment[fr]=Earthcoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Earthcoin, eşten eşe kriptografik sanal para birimi
+Exec=earthcoin-qt %u
+Terminal=false
+Type=Application
+Icon=earthcoin128
+MimeType=x-scheme-handler/earthcoin;
+Categories=Office;Finance;
