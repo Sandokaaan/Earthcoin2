@@ -244,6 +244,7 @@ inline void UnserializeTransaction(TxType& tx, Stream& s) {
     unsigned char flags = 0;
     tx.vin.clear();
     tx.vout.clear();
+    tx.strTxComment.clear();
     /* Try to read the vin. In case the dummy is there, this will be read as an empty vector. */
     s >> tx.vin;
     if (tx.vin.size() == 0 && fAllowWitness) {
@@ -269,6 +270,8 @@ inline void UnserializeTransaction(TxType& tx, Stream& s) {
         throw std::ios_base::failure("Unknown transaction optional data");
     }
     s >> tx.nLockTime;
+    if (tx.nVersion > 1)
+	s >> tx.strTxComment;
 }
 
 template<typename Stream, typename TxType>
@@ -298,6 +301,8 @@ inline void SerializeTransaction(const TxType& tx, Stream& s) {
         }
     }
     s << tx.nLockTime;
+    if (tx.nVersion > 1)
+	s << tx.strTxComment;
 }
 
 
@@ -309,7 +314,7 @@ class CTransaction
 public:
     // Default transaction version.
     // Earthcoin: Temporarily restricted to v1 for compatibility with 1.10
-    static const int32_t CURRENT_VERSION=1;
+    static const int32_t CURRENT_VERSION=2;
 
     // Changing the default transaction version requires a two step process: first
     // adapting relay policy by bumping MAX_STANDARD_VERSION, and then later date
@@ -326,6 +331,7 @@ public:
     const std::vector<CTxIn> vin;
     const std::vector<CTxOut> vout;
     const uint32_t nLockTime;
+    const std::string strTxComment;
 
 private:
     /** Memory only. */
@@ -415,6 +421,7 @@ struct CMutableTransaction
     std::vector<CTxIn> vin;
     std::vector<CTxOut> vout;
     uint32_t nLockTime;
+    std::string strTxComment;
 
     CMutableTransaction();
     CMutableTransaction(const CTransaction& tx);

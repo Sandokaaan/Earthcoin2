@@ -22,6 +22,12 @@
 /** This is needed because the foreach macro can't get over the comma in pair<t1, t2> */
 #define PAIRTYPE(t1, t2)    std::pair<t1, t2>
 
+// A maximal length of txComment
+const int TX_COMMENT_LIMIT = 252;
+const int TX_COMPOSED_COMMENT_LIMIT = 400;
+// Check txComment in UTF-8 and limit it to 252 bytes
+std::string ValidateUnicodeString(const std::string& input);
+
 /** Used by SanitizeString() */
 enum SafeChars
 {
