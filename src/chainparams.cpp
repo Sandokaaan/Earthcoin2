@@ -84,7 +84,7 @@ public:
         consensus.BIP34Height = 710000;
         consensus.BIP34Hash = uint256S("0xfa09d204a83a768ed5a7c8d441fa62f2043abf420cff1226c7b4329aeb9d51cf");
         // consensus.BIP65Height = 1032483; // Not enabled in yet - transaction spendable in future at agiven timestamp
-        consensus.BIP66Height = 3400000; // last non-v2 block
+        consensus.BIP66Height = 1; // last non-v2 block - SANDO: For a test purposes - start immediatelly, the change to 3400000
         consensus.powLimit = uint256S("0x00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20;
         consensus.nPowTargetTimespan = 30 * 60;  // 30 minutes
         consensus.nPowTargetSpacing = 60;        // 60 seconds
@@ -117,10 +117,10 @@ public:
         consensus.defaultAssumeValid = uint256S("0x98b01e772f0ca3b3ac875857e4f3b6571f8f18b8b896d0cb2feefeca90b69583"); //2242222  // ?????
 
         // AuxPoW parameters
-        consensus.nAuxpowChainId = 0x005d; // 98 - Josh Wise!
+        consensus.nAuxpowChainId = 0x205d; // 0x2000 | 0x005d = v2.0.x blockID + EAC_key_Prefix
         consensus.fStrictChainId = true;
         consensus.fAllowLegacyBlocks = true;
-        consensus.nHeightEffective = 3400000;	// start AUX-POW
+        consensus.nHeightEffective = 1;	// start AUX-POW SANDO: For a test purposes - start immediatelly, the change to 3400000
 
         // Blocks 145000 - 371336 are Digishield without AuxPoW
         digishieldConsensus = consensus;
@@ -133,7 +133,7 @@ public:
 
         // Blocks 371337+ are AuxPoW
         auxpowConsensus = digishieldConsensus;
-        auxpowConsensus.nHeightEffective = 3400000;  // SANDO: Change it later
+        auxpowConsensus.nHeightEffective = 1;      // SANDO: For a test purposes - start immediatelly, the change to 3400000
         auxpowConsensus.fAllowLegacyBlocks = true;
 
         // Assemble the binary search tree of consensus parameters
