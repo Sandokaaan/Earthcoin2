@@ -11,6 +11,7 @@
 #include "txmempool.h"
 #include "util.h"
 #include "validation.h"
+#include "pow.h"
 
 int static generateMTRandom(unsigned int s, int range)
 {
@@ -24,6 +25,10 @@ int static generateMTRandom(unsigned int s, int range)
 // a retarget, so we need to handle minimum difficulty on all blocks.
 bool AllowDigishieldMinDifficultyForBlock(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
+    // never allow minimal difficulty, EAC retarget works fine	
+    return false;
+
+    /*
     // check if the chain allows minimum difficulty blocks
     if (!params.fPowAllowMinDifficultyBlocks)
         return false;
@@ -35,10 +40,15 @@ bool AllowDigishieldMinDifficultyForBlock(const CBlockIndex* pindexLast, const C
 
     // Allow for a minimum block time if the elapsed time > 2*nTargetSpacing
     return (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2);
+    */
 }
 
 unsigned int CalculateEarthcoinNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params)
 {
+    // do not change retarget algo	
+    return CalculateNextWorkRequired(pindexLast, nFirstBlockTime, params);
+
+    /*
     int nHeight = pindexLast->nHeight + 1;
     const int64_t retargetTimespan = params.nPowTargetTimespan;
     const int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
@@ -83,6 +93,7 @@ unsigned int CalculateEarthcoinNextWorkRequired(const CBlockIndex* pindexLast, i
         bnNew = bnPowLimit;
 
     return bnNew.GetCompact();
+    */
 }
 
 bool CheckAuxPowProofOfWork(const CBlockHeader& block, const Consensus::Params& params)
