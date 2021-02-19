@@ -164,7 +164,7 @@ public:
 
         // Note that of those with the service bits flag, most only support a subset of possible options
         //vSeeds.push_back(CDNSSeedData("dnsseed.eacpay.com", "dnsseed.deveac.com", true));
-        vSeeds.push_back(CDNSSeedData("dnsseed.deveac.com", "dnsseed.eacpay.com"));
+        vSeeds.push_back(CDNSSeedData("dnsseed.deveac.com"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,93);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
