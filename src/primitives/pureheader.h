@@ -149,9 +149,10 @@ public:
      */
     inline bool IsLegacy() const
     {
+	int32_t chID = GetChainId();
         return nVersion == 1
             // Earthcoin: We have a random v2 block with no AuxPoW, treat as legacy
-            || (nVersion == 2 && GetChainId() == 0);
+            || ( (nVersion == 2 && chID == 0) || chID == 8192 );
     }
 };
 
